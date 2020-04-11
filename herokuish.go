@@ -6,8 +6,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/progrium/go-basher"
-	"gopkg.in/yaml.v2"
+	basher "github.com/progrium/go-basher"
+	yaml "gopkg.in/yaml.v2"
 )
 
 var Version string
@@ -92,9 +92,11 @@ func main() {
 		"include/slug.bash",
 	}
 
-	if os.Getenv("BASH_BIN") == "" {
-		basher.Application(funcs, scripts, Asset, true)
-	} else {
-		basher.ApplicationWithPath(funcs, scripts, Asset, true, os.Getenv("BASH_BIN"))
-	}
+	// Force the system bash
+	basher.ApplicationWithPath(funcs, scripts, Asset, true, "/bin/bash")
+	// if os.Getenv("BASH_BIN") == "" {
+	// 	basher.Application(funcs, scripts, Asset, true)
+	// } else {
+	// 	basher.ApplicationWithPath(funcs, scripts, Asset, true, os.Getenv("BASH_BIN"))
+	// }
 }
